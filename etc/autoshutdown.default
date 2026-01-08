@@ -231,6 +231,14 @@ PLUGINCHECK="false"
     # To delete all *.status files, which are not deleted before (loss of power
     # for example).
 
+# -----------------------------------------------------------------------------
+
+CHECKPLEX="false"
+    # Check a locally running Plex Media Server, if there are active streams
+
+PLEX_TOKEN=""
+    # Your authentication Plex PLEX_TOKEN
+    # See https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/
 
 ###############################################################################
 # Syslog Configuration

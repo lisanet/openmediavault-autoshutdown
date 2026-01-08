@@ -151,6 +151,14 @@
 			"type": "boolean",
 			"default": false
 		},
+		"checkplex": {
+			"type": "boolean",
+			"default": false
+		},
+		"plextoken": {
+			"type": "string",
+			"default": ""
+		},
 		"syslog": {
 			"type": "boolean",
 			"default": true

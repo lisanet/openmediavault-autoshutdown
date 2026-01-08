@@ -350,6 +350,31 @@ _check_processes() {
 
 ###############################################################################
 #
+#   Name       : _check_plex_streams
+#   Description: Checks if there are any active Plex streams.
+#   Parameters : None
+#   Globals    : PLEX_TOKEN : If set, run the Plex check.
+#   Return     : 0 : If ther are no active Plex streams, ready for shutdown.
+#              : 1 : If there are active Plex streams, no shutdown.
+#
+
+_check_plex_streams() {
+    local playing
+    playing=$(curl -s -H "accept: application/json" "http://localhost:32400/status/sessions/?X-Plex-Token=$PLEX_TOKEN" | jq .MediaContainer.size)
+    playing=${playing:-0}
+
+    local msg="INFO: Found ${playing} active Plex streams -> "
+    [ "${playing}" -eq 0 ] && {
+        _log "${msg}next check"
+        return 0; }
+
+    _log "${msg}no shutdown"
+    return 1
+}
+
+
+###############################################################################
+#
 #   Name       : _check_plugin
 #   Parameters : None
 #   Globals    : None
@@ -1391,6 +1416,8 @@ _check_system_active() {
     __run_check "${CHECK_CLI}" _check_users_status || return 1
     # PRIO 2: Check Samba for connected clients.
     __run_check "${CHECK_SAMBA}" _check_smb_status || return 1
+    # PRIO 2: Check Plex for active streams.
+    __run_check "${CHECKPLEX}" _check_plex_streams || return 1
 
     for net_iface in "${NICS[@]}"; do
         # PRIO 3: Do a check for ul-dl-rate across active network interfaces.

@@ -42,6 +42,8 @@ PLUGINCHECK="{{ config.plugincheck | to_bool | lower }}"
 SYSLOG="{{ config.syslog | to_bool | lower }}"
 VERBOSE="{{ config.verbose | to_bool | lower }}"
 FAKE="{{ config.fake | to_bool | lower }}"
+CHECKPLEX="{{ config.checkplex | to_bool | lower }}"
+PLEX_TOKEN="{{ config.plextoken }}"
 {%- if config.extraoptions | length > 0 %}
 {{ config.extraoptions }}
 {%- endif %}

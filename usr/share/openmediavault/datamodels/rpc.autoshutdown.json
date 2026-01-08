@@ -148,6 +148,14 @@
 				"type": "boolean",
 				"required": false
 			},
+			"checkplex": {
+				"type": "boolean",
+				"required": false
+			},
+			"plextoken": {
+				"type": "string",
+				"required": false
+			},
 			"syslog": {
 				"type": "boolean",
 				"required": true

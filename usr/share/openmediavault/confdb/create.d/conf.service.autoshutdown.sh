@@ -61,6 +61,8 @@ if ! omv_config_exists "${SERVICE_XPATH}"; then
     omv_config_add_key "${SERVICE_XPATH}" "syslog" "1"
     omv_config_add_key "${SERVICE_XPATH}" "verbose" "0"
     omv_config_add_key "${SERVICE_XPATH}" "fake" "0"
+    omv_config_add_key "${SERVICE_XPATH}" "checkplex" "0"
+    omv_config_add_key "${SERVICE_XPATH}" "plextoken" ""
     omv_config_add_key "${SERVICE_XPATH}" "extraoptions" ""
 fi
 
