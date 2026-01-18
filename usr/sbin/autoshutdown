@@ -904,9 +904,16 @@ _check_hddio() {
     local hdd hdd_in hdd_out; while read -r hdd hdd_in hdd_out; do
         _log "DEBUG: ========== Device: ${hdd} =========="
 
-        ! mount -l | grep -q "${hdd}" && {
-            _log "DEBUG: Skipping as no mount point"
-            continue; }
+        if ! mount -l | grep -q -- "${hdd}"; then
+            if ! command -v zpool >/dev/null 2>&1 ||
+               ! ZPOOL_SCRIPTS_AS_ROOT=1 zpool status -c upath 2>/dev/null |
+                    grep -F -- "${hdd}" |
+                    grep -qE 'ONLINE|DEGRADED'
+            then
+                _log "DEBUG: Skipping as no mount point"
+                continue
+            fi
+        fi
 
         local line; while read -r line; do
             _log "DEBUG: ${line}"
