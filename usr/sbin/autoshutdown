@@ -480,7 +480,7 @@ _check_net_status() {
     # For each socket see if it is stated active using ss command.
     for nsocket in ${NSOCKETNUMBERS//,/ }; do
         local lines; lines="$(LC_ALL=C
-            ss state established --no-header \
+            ss -tu state established --no-header \
                 "( sport ${nsocket} and ( src [${ips_filter}] ) \
                     ${ips_ignore:-} )" )"
 
